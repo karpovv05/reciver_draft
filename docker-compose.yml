@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  flask-receiver:
+    build: .
+    container_name: flask-receiver
+    restart: unless-stopped
+    ports:
+      - "${PORT:-5000}:${PORT:-5000}"
+    environment:
+      - FLASK_APP=${FLASK_APP:-app.py}
+      - FLASK_ENV=${FLASK_ENV:-production}
+      - PORT=${PORT:-5000}
+      - APP_NAME=${APP_NAME:-Flask Request Receiver}
+      - APP_VERSION=${APP_VERSION:-1.0.0}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LOG_FILE=${LOG_FILE:-logs/requests.log}
+      - HOST=${HOST:-0.0.0.0}
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    networks:
+      - flask-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${PORT:-5000}/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  flask-network:
+    driver: bridge
+
+volumes:
+  logs:
+  data:
+
