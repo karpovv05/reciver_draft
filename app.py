@@ -1,7 +1,21 @@
 from flask import Flask, request
 import json
+import logging
+import sys
+from datetime import datetime
 
 app = Flask(__name__)
+
+# Настраиваем логирование
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(message)s',
+    handlers=[
+        logging.FileHandler('logs/requests.log'),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+logger = logging.getLogger(__name__)
 
 @app.route('/', methods=['POST'])
 def receive_post():
@@ -14,13 +28,13 @@ def receive_post():
         else:
             body = request.get_data(as_text=True)
         
-        # Выводим тело запроса в консоль
-        print(f"POST body: {body}")
+        # Выводим тело запроса в лог
+        logger.info(f"POST body: {body}")
         
         return "OK", 200
         
     except Exception as e:
-        print(f"Error: {str(e)}")
+        logger.error(f"Error: {str(e)}")
         return "Error", 500
 
 if __name__ == '__main__':
