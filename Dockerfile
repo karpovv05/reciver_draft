@@ -18,15 +18,17 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем исходный код приложения
 COPY . .
 
+# Создаем директории для логов и данных
+RUN mkdir -p logs data
+
 # Создаем пользователя для безопасности
 RUN useradd --create-home --shell /bin/bash app
 
 # Делаем entrypoint скрипт исполняемым
 RUN chmod +x entrypoint.sh
 
-# Создаем директории для логов и данных и устанавливаем права
-RUN mkdir -p logs data \
-    && chown -R app:app /app \
+# Устанавливаем права на директории и файлы
+RUN chown -R app:app /app \
     && chmod 755 /app/logs /app/data
 
 # Переключаемся на пользователя app
