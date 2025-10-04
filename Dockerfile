@@ -21,8 +21,8 @@ COPY . .
 # Создаем директории для логов и данных
 RUN mkdir -p logs data
 
-# Создаем пользователя для безопасности
-RUN useradd --create-home --shell /bin/bash app
+# Создаем пользователя для безопасности с фиксированным UID/GID
+RUN groupadd -g 1000 app && useradd -u 1000 -g app -m -s /bin/bash app
 
 # Делаем entrypoint скрипт исполняемым
 RUN chmod +x entrypoint.sh
