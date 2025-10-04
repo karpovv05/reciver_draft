@@ -9,14 +9,7 @@ services:
     ports:
       - "${PORT:-5001}:${PORT:-5000}"
     environment:
-      - FLASK_APP=${FLASK_APP:-app.py}
-      - FLASK_ENV=${FLASK_ENV:-production}
-      - PORT=${PORT:-5000}
-      - APP_NAME=${APP_NAME:-Flask Request Receiver}
-      - APP_VERSION=${APP_VERSION:-1.0.0}
-      - LOG_LEVEL=${LOG_LEVEL:-INFO}
-      - LOG_FILE=${LOG_FILE:-logs/requests.log}
-      - HOST=${HOST:-0.0.0.0}
+      - FLASK_ENV=production
     volumes:
       - ./logs:/app/logs
       - ./data:/app/data
