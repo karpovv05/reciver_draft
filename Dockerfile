@@ -24,9 +24,6 @@ RUN mkdir -p logs data
 # Создаем пользователя для безопасности с фиксированным UID/GID
 RUN groupadd -g 1000 app && useradd -u 1000 -g app -m -s /bin/bash app
 
-# Делаем entrypoint скрипт исполняемым
-RUN chmod +x entrypoint.sh
-
 # Устанавливаем права на директории и файлы
 RUN chown -R app:app /app \
     && chmod 755 /app/logs /app/data
@@ -41,6 +38,6 @@ EXPOSE 5000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD curl -f http://localhost:5000/ || exit 1
 
-# Запускаем приложение через entrypoint
-CMD ["./entrypoint.sh"]
+# Запускаем приложение напрямую
+CMD ["python", "app.py"]
 

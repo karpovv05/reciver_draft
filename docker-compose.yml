@@ -10,6 +10,7 @@ services:
       - "${PORT:-5001}:${PORT:-5000}"
     environment:
       - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
     volumes:
       - ./logs:/app/logs
       - ./data:/app/data

@@ -2,14 +2,32 @@ from flask import Flask, request
 import json
 import logging
 import sys
+import os
 from datetime import datetime
+
+# Создаем директории если их нет
+os.makedirs('logs', exist_ok=True)
+os.makedirs('data', exist_ok=True)
+
+# Отключаем буферизацию Python
+os.environ['PYTHONUNBUFFERED'] = '1'
+sys.stdout.reconfigure(line_buffering=True)
+sys.stderr.reconfigure(line_buffering=True)
+
+# Настраиваем логирование для вывода в консоль
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout)  # Вывод в консоль
+    ]
+)
 
 app = Flask(__name__)
 
 
 @app.route('/post', methods=['POST'])
 def receive_post():
-    print(123)
     """Принимает POST и выводит тело в лог"""
     try:
         # Получаем тело запроса
@@ -19,13 +37,14 @@ def receive_post():
         else:
             body = request.get_data(as_text=True)
         
-        # Выводим тело запроса в лог
-        print(f"POST body: {body}")
+        # Выводим тело запроса в консоль
+        print(f"POST body: {body}", flush=True)
+        logging.info(f"POST body: {body}")
         
         return "OK", 200
         
     except Exception as e:
-        print(f"Error: {str(e)}")
+        print(f"Error: {str(e)}", flush=True)
         return "Error", 500
 
 if __name__ == '__main__':
