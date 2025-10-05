@@ -3,11 +3,14 @@ import json
 import logging
 import sys
 import os
+import ssl
 from datetime import datetime
+from config import HOST, PORT, SSL_CONTEXT
 
 # Создаем директории если их нет
 os.makedirs('logs', exist_ok=True)
 os.makedirs('data', exist_ok=True)
+os.makedirs('certs', exist_ok=True)
 
 # Отключаем буферизацию Python
 os.environ['PYTHONUNBUFFERED'] = '1'
@@ -55,4 +58,9 @@ def receive_post():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(
+        host=HOST, 
+        port=PORT, 
+        ssl_context=SSL_CONTEXT,
+        threaded=True
+    )
