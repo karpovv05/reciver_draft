@@ -6,18 +6,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# Настраиваем логирование
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(message)s',
-    handlers=[
-        logging.FileHandler('logs/requests.log'),
-        logging.StreamHandler(sys.stdout)
-    ]
-)
-logger = logging.getLogger(__name__)
 
-@app.route('/', methods=['POST'])
+@app.route('/post', methods=['POST'])
 def receive_post():
     """Принимает POST и выводит тело в лог"""
     try:
@@ -29,12 +19,12 @@ def receive_post():
             body = request.get_data(as_text=True)
         
         # Выводим тело запроса в лог
-        logger.info(f"POST body: {body}")
+        print(f"POST body: {body}")
         
         return "OK", 200
         
     except Exception as e:
-        logger.error(f"Error: {str(e)}")
+        print(f"Error: {str(e)}")
         return "Error", 500
 
 if __name__ == '__main__':
