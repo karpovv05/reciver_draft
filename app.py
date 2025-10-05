@@ -26,7 +26,7 @@ logging.basicConfig(
 app = Flask(__name__)
 
 
-@app.route('/get', methods=['get'])
+@app.route('/', methods=['get'])
 def receive_get():
     return "OKGET", 200
 
