@@ -14,7 +14,6 @@ services:
     volumes:
       - ./logs:/app/logs
       - ./data:/app/data
-      - ./certs:/app/certs
     networks:
       - flask-network
     healthcheck:
@@ -31,5 +30,4 @@ networks:
 volumes:
   logs:
   data:
-  certs:
 

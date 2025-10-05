@@ -19,15 +19,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем исходный код приложения
 COPY . .
 
-# Создаем директории для логов, данных и сертификатов
-RUN mkdir -p logs data certs
+# Создаем директории для логов и данных
+RUN mkdir -p logs data
 
 # Создаем пользователя для безопасности с фиксированным UID/GID
 RUN groupadd -g 1000 app && useradd -u 1000 -g app -m -s /bin/bash app
 
 # Устанавливаем права на директории и файлы
 RUN chown -R app:app /app \
-    && chmod 755 /app/logs /app/data /app/certs
+    && chmod 755 /app/logs /app/data
 
 # Переключаемся на пользователя app
 USER app

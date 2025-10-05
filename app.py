@@ -10,7 +10,6 @@ from config import HOST, PORT, SSL_CONTEXT
 # Создаем директории если их нет
 os.makedirs('logs', exist_ok=True)
 os.makedirs('data', exist_ok=True)
-os.makedirs('certs', exist_ok=True)
 
 # Отключаем буферизацию Python
 os.environ['PYTHONUNBUFFERED'] = '1'

@@ -1,7 +1,7 @@
 # SSL конфигурация
 HOST = '0.0.0.0'
 PORT = 5000
-# SSL_CONTEXT = 'adhoc'  # Для самоподписанного сертификата
+SSL_CONTEXT = 'adhoc'  # Для самоподписанного сертификата Flask
 # Или для кастомных сертификатов:
-SSL_CONTEXT = ('/app/certs/cert.pem', '/app/certs/key.pem')
+# SSL_CONTEXT = ('/app/certs/cert.pem', '/app/certs/key.pem')
 
