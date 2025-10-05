@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 @app.route('/post', methods=['POST'])
 def receive_post():
+    print(123)
     """Принимает POST и выводит тело в лог"""
     try:
         # Получаем тело запроса
