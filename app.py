@@ -26,6 +26,12 @@ logging.basicConfig(
 app = Flask(__name__)
 
 
+@app.route('/get', methods=['get'])
+def receive_get():
+    return "OKGET", 200
+
+
+
 @app.route('/post', methods=['POST'])
 def receive_post():
     """Принимает POST и выводит тело в лог"""
